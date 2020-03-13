@@ -2,6 +2,7 @@
 
 <head>
     <link rel="stylesheet" href="css/bs4.css">
+    <script src="jscolor/jscolor.js"></script>
   <script src="js/jquery.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bs4.js"></script>
@@ -23,13 +24,14 @@
              overflow: scroll;
         }
         .editor{
-            margin-top: 200px
+            margin-top: 50px
         }
     </style>
 
 
     <script>
         $(document).ready(function() {
+            
             $('#jBold').click(function() {
                 document.execCommand('bold');
             });
@@ -66,7 +68,15 @@
         document.execCommand("insertHTML", false, "<p>"+ document.getSelection()+"</p>");
 
   });  
-       
+       $("#colorpick").change(function(){
+           document.designMode = "on";
+          value =  $(this).val();  
+            document.execCommand("foreColor", false, value);
+       });
+           $("#fonts").change(function(){
+         var a =  $(this).find(":selected").val();
+            document.execCommand("fontName", false, a);
+       });
             
         });
 
@@ -76,21 +86,32 @@
 <body>
    <div class="container">
     <div class="row editor">
-        <div class="col-6">
+        <div class="col-12">
+    Color: <input type="button" class="jscolor btn btn-light btn-sm" value="ab2567" id = "colorpick">
     <button class="btn btn-light btn-sm" id="jBold"><b>B</b></button>
     <button class="btn btn-light btn-sm" id="italic"><b>I</b></button>
     <button class="btn btn-light btn-sm" id="br"><b>New Line</b></button>
     <button class="btn btn-light btn-sm" id="decrease"><b>-<i class="fas fa-font"></i></b></button>
     <button class="btn btn-light btn-sm" id="increase"><b>+<i class="fas fa-font"></i></b></button>
     <button class="btn btn-light btn-sm" id="list"><b>List</b></button>
-            <button class="btn btn-light btn-sm" id="para"><b>Paragraph</b></button>
-            <button id="textedit" class="btn btn-success btn-sm"><b>Publish</b></button>
+    <button class="btn btn-light btn-sm" id="para"><b>Paragraph</b></button>
+            <select id  ="fonts">
+    <option value="Arial">Arial</option>
+    <option value="Calibri">Calibri</option>
+    <option value="Comic Sans MS">Comic Sans MS</option>
+    <option value="Helvetica">Helvetica</option>
+    <option value="Times New Roman">Times New Roman</option>
+</select>
+            
+            
+            
+    <button id="textedit" class="btn btn-success btn-sm"><b>Publish</b></button>
     
     <div id="textEditor" contenteditable>
         Select some text and click the button to make edit the text...
     </div>
        </div> 
-         <div class="col-6">
+         <div class="col-12">
              <h5>HTML Output:</h5>
     <textarea class="form-control"   id = "data"></textarea>
         </div>
